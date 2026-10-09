@@ -19,9 +19,14 @@ for item in list(pasta.iterdir()):
         elif extensao in [".zip", ".rar", ".tar", ".gz", ".7z"]:
          categoria = "Compactados"
         else:
-         categoria = "Outros"
-    if categoria != "Outros":
-        destino = pasta / categoria
-        destino.mkdir(exist_ok=True)
-        item.rename(destino / item.name)
-        print(f"{item.name} -> {categoria}")        
+            categoria = "Outros"
+        if categoria != "Outros":
+            destino = pasta / categoria
+            destino.mkdir(exist_ok=True)
+            destino_arquivo = destino / item.name
+            if destino_arquivo.exists():
+                print(f"{item.name} já existe em {categoria}, pulando")
+            else:
+                item.rename (destino_arquivo)
+                print (f"{item.name} -> {categoria}")
+                       
